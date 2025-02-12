@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D365 Marketing Web SDK Integration</title>
-    
+
     <!-- Load the D365 Web SDK -->
     <script type="text/javascript">
         (function(w,d,s,r,o){
@@ -14,9 +14,11 @@
         })(window, document, 'script', 'https://microchip-uat.crm.dynamics.com/websdk.js', 'msdynmkt');
 
         // Initialize the SDK with your organization details
-        msdynmkt('config', {
-            organizationId: 'b7fb7730-768f-ef11-8a66-002248282c3b',  // Replace with your Org ID
-            environmentId: '423d3764-171f-e70d-a2f9-f00eba87a316'    // Replace with your Environment ID
+        window.addEventListener("load", function() {
+            msdynmkt('config', {
+                organizationId: 'b7fb7730-768f-ef11-8a66-002248282c3b',  // Your Org ID
+                environmentId: '423d3764-171f-e70d-a2f9-f00eba87a316'    // Your Environment ID
+            });
         });
     </script>
 
@@ -36,16 +38,21 @@
 
     <script>
         function trackEvent() {
-            msdynmkt('trackEvent', {
-                eventName: 'ButtonClicked',
-                contactId: 'CONTACT_GUID',  // Replace with actual contact ID
-                data: {
-                    eventType: 'CTA Click',
-                    buttonName: 'Track Event Button'
-                }
-            });
+            if (typeof msdynmkt !== 'undefined') {
+                msdynmkt('trackEvent', {
+                    eventName: 'ButtonClicked', // Matches the event name in D365
+                    contactId: '00000000-0000-0000-00aa-000010001003',  // Replace with actual contact ID
+                    data: {
+                        eventType: 'CTA Click',
+                        buttonName: 'Track Event Button'
+                    }
+                });
 
-            alert("Event Tracked! Check D365 Marketing for insights.");
+                alert("Event Tracked! Check D365 Marketing for insights.");
+            } else {
+                console.error("D365 SDK is not loaded properly.");
+                alert("Error: SDK not loaded. Check console for details.");
+            }
         }
     </script>
 </body>
