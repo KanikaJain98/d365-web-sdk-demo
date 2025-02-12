@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D365 Marketing Web SDK Integration</title>
-
+    
     <!-- Load the D365 Web SDK -->
     <script type="text/javascript">
         (function(w,d,s,r,o){
@@ -21,33 +21,36 @@
             });
         });
     </script>
-
+    
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: rgb(243, 242, 241); }
         h1 { color: #0078D4; }
         button { background-color: #0078D4; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 18px; }
         button:hover { background-color: #005A9E; }
     </style>
 </head>
-
 <body>
     <h1>Welcome to My D365 Web SDK Demo</h1>
     <p>Click the button below to simulate an event and trigger a marketing journey.</p>
-
+    
     <button onclick="trackEvent()">Track Event</button>
-
+    
     <script>
         function trackEvent() {
             if (typeof msdynmkt !== 'undefined') {
                 msdynmkt('trackEvent', {
-                    eventName: 'ButtonClicked', // Matches the event name in D365
-                    contactId: '00000000-0000-0000-00aa-000010001003',  // Replace with actual contact ID
+                    eventName: 'New event 1', // Matches the event name in D365
+                    contactId: '9a888146-8be8-ef11-8ee9-002248231191',  // Replace with actual contact ID
                     data: {
                         eventType: 'CTA Click',
-                        buttonName: 'Track Event Button'
+                        buttonName: 'Track Event Button',
+                        order: '1',
+                        orderproduct: 'Demo',
+                        bindingid: '12345',
+                        contactpoint_email: '<knjain@alletec.com>',
+                        contactpoint_phone: '<7014298201>'
                     }
                 });
-
                 alert("Event Tracked! Check D365 Marketing for insights.");
             } else {
                 console.error("D365 SDK is not loaded properly.");
